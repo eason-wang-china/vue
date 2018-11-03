@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Vue入门与实例</title>
+  <meta charset="utf-8">
+</head>
+<body>
+  <div> 主要演示vue基本用法、过滤器(简单文本转换)、指令(通过表达式的改变修改dom)</div>
+
+  <br>
+  
+  <div id="app" class="my-class">
+    <p>这个使用ID：{{a instanceof Date? a.getSeconds(): a}}</p>
+    <span v-pre>{{两个大括号里面可以使用三元运算或者简单的运算}} </span>
+    <button @click="destroy">销毁</button></div>
+  </div>
+  
+  <br>
+  
+  <div id="app" class="my-class other-class">
+    <p v-if="show">这个使用样式：{{a | formatDate('秒')}}</p>
+    <span v-pre>{{指令里面可以是一个内联语句}} </span>
+    <button v-on:click="show = show ? false : true">显示/隐藏</button></div>
+  </div>
+
+  <script type="text/javascript" src="vue.2.0.1.js"></script>
+  <script type="text/javascript">
+    var vm = new Vue({
+      // 不管是使用class 还是 id，都是名字出现的第一个元素起作用
+      //el: '#app',
+      el: '.my-class',
+      //el: '.other-class',
+      data: {
+        a: '这儿会显示日期！',
+        show: true
+      },
+      methods: {
+        destroy : function() {
+          this.$destroy(); // 通过符号 $ 引用VUE的实例方法和属性
+        }
+      },
+      filters: {
+        formatDate: function(val, unit) {
+
+          return val instanceof Date ? val.getSeconds() + unit : val;
+        }
+      },
+      mounted: function() {
+        var _this = this;
+        this.timer = setInterval(function() {
+          _this.a = new Date();
+        }, 1000);
+      },
+      beforeDestroy: function() {
+        console.log(this.a);
+        alert(this.a);
+        if(this.timer)
+          clearInterval(this.timer);
+      }
+    });
+  </script>
+
+</body>
+</html>
+

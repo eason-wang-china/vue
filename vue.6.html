@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Vue入门与实例</title>
+  <meta charset="utf-8">
+  <style type="text/css">
+    [v-cloak] {
+      display: none;
+    }
+    div, ul {
+    	 padding: 10px;
+    	 margin: 5px;
+    	 border: 2px solid red;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app" v-cloak>
+    
+    <div>这是输入的内容：{{ message }}</div>
+
+    <div>
+    	请输入内容：<input type="text" @input="handleInput" placeholder="place input...">
+    </div>
+
+    <div>
+    	<input type="radio" v-model="picked" value="HTML"><label for="HTML">HTML</label>
+    	<input type="radio" v-model="picked" value="JS"><label for="JS">JS</label>
+    	<input type="radio" v-model="picked" value="CSS"><label for="CSS">CSS</label>
+    	&nbsp;当前选中的是：{{ picked }}
+    </div>
+
+    <div>
+    	<input type="checkbox" v-model="checked" value="HTML"><label for="HTML">HTML</label>
+    	<input type="checkbox" v-model="checked" value="JS"><label for="JS">JS</label>
+    	<input type="checkbox" v-model="checked" value="CSS"><label for="CSS">CSS</label>
+    	&nbsp;当前选中的是：{{ checked }}
+    </div>
+
+  </div>
+
+  <script type="text/javascript" src="vue.2.0.1.js"></script>
+  <script type="text/javascript">
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        message: '这是内容部分！',
+        picked: 'HTML',
+        checked: ['HTML']
+      },
+      methods: {
+      	handleInput: function(e) {
+      		this.message = e.target.value;
+      	}
+      }
+    });
+  </script>
+
+</body>
+</html>
+

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Vue入门与实例</title>
+  <meta charset="utf-8">
+  <style type="text/css">
+    [v-cloak] {
+      display: none;
+    }
+    [no-show] {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app" v-cloak>
+    <div v-cloak> 一开始隐藏，加载完成显示</div>
+    <div no-show> 一直隐藏</div>
+    <div> 利用checked控制显示隐藏，使用v-bind，语法糖 :</div>
+    
+    <br>
+    
+    <div class="my-class">
+      {{ message }}
+    </div>
+    
+    <br>
+
+    <ul>
+      <template v-for="book in books">
+        <li><input type="checkbox" :checked="true"/> 书名：{{ book.name }} - 作者：{{ book.author }}</li>
+      </template>
+    </ul>
+    
+    <ul>
+      <template v-for="book in filterBooks">
+        <li>书名：{{ book.name }} - 作者：{{ book.author }}</li>
+      </template>
+    </ul>
+
+    <ul>
+      <template v-for="book in sortBooks">
+        <li><input type="checkbox" :checked="book.checked"/>书名：{{ book.name }} - 作者：{{ book.author }}</li>
+      </template>
+    </ul>
+  </div>
+
+  <script type="text/javascript" src="vue.2.0.1.js"></script>
+  <script type="text/javascript">
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        message: '这是内容部分！',
+        books: [
+          {name: 'Js', author: 'wangys', checked: true},
+          {name: 'Java', author: 'eason wang', checked: false},
+          {name: 'Python', author: 'eason', checked: true}
+        ]
+      },
+      computed: {
+        filterBooks: function() {
+          return this.books.filter(function(book){
+            return book.author.match(/eason/);
+          });
+        },
+        sortBooks: function() {
+          return this.books.sort(function(a, b){
+            return a.name.length > b.name.length;
+          });
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
+

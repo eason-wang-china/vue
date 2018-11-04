@@ -10,7 +10,7 @@
   <br>
   
   <div id="app" class="my-class">
-    <p>这个使用ID：{{a instanceof Date? a.getSeconds(): a}}</p>
+    <p>这个使用ID创建实例：{{a instanceof Date? a.getSeconds(): a}}</p>
     <span v-pre>{{两个大括号里面可以使用三元运算或者简单的运算}} </span>
     <button @click="destroy">销毁</button></div>
   </div>
@@ -18,9 +18,10 @@
   <br>
   
   <div id="app" class="my-class other-class">
-    <p v-if="show">这个使用样式：{{a | formatDate('秒')}}</p>
+    <p v-if="show">这个使用样式创建实例：{{a | formatDate('秒')}}</p>
     <span v-pre>{{指令里面可以是一个内联语句}} </span>
-    <button v-on:click="show = show ? false : true">显示/隐藏</button></div>
+    <div :style="show ? 'display:block;' : 'display:none;'">通过样式控制显示和隐藏</div>
+    <button v-on:click="show = show ? false : true">显示/隐藏（注意v-if和样式隐藏的区别）</button></div>
   </div>
 
   <script type="text/javascript" src="vue.2.0.1.js"></script>
@@ -28,8 +29,8 @@
     var vm = new Vue({
       // 不管是使用class 还是 id，都是名字出现的第一个元素起作用
       //el: '#app',
-      el: '.my-class',
-      //el: '.other-class',
+      //el: '.my-class',
+      el: '.other-class',
       data: {
         a: '这儿会显示日期！',
         show: true

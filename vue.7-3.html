@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Vue入门与实例</title>
+  <meta charset="utf-8">
+  <style type="text/css">
+    [v-cloak] {
+      display: none;
+    }
+    div, ul {
+    	 padding: 10px;
+    	 margin: 5px;
+    	 border: 2px solid red;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app" v-cloak>
+    
+    <div>{{ message }}</div>
+    <my-com 
+    @on-change="handleChange" 
+    @click.native="message='只有在组件上需要加native，在dom元素上不需要加，修改的是外部的message'" inline-template>
+      
+      <div>
+        {{ message }} : {{ count }}-- <button @click.stop="add">修改内容(stop阻止冒泡)</button>
+      </div>  
+
+    </my-com>
+    
+  </div>
+
+  <script type="text/javascript" src="vue.2.0.1.js"></script>
+  <script type="text/javascript">
+
+    Vue.component('my-com', {
+      data: function() {
+        return {count: 1, message: "内部的message，内联模版使用了，不能使用外部的message"};
+      },
+      methods: {
+        add: function(){
+          this.count++;
+          //this.$emit("on-change", this.count);
+        }
+      }
+    });
+
+    var vm = new Vue({
+      el: '#app',
+      data: {
+       message: '这真的是一个模版！！！'
+      },
+      methods: {
+        handleChange: function(count){
+          //alert(count);
+          //this.message = "数量变化了：" + count;
+        }
+      }
+    });
+
+  </script>
+
+</body>
+</html>
+

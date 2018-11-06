@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Vue入门与实例</title>
+  <meta charset="utf-8">
+  <style type="text/css">
+    [v-cloak] {
+      display: none;
+    }
+    div, ul {
+    	 padding: 10px;
+    	 margin: 5px;
+    	 border: 2px solid red;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app" v-cloak>
+    
+    <my-com myMessage="这是我的信息..."></my-com>
+    <my-com :myMessage="message"></my-com>
+
+    <my-com-2 my-message="这是我的信息..."></my-com-2>
+    <my-com-2 :my-message="message"></my-com-2>
+    
+  </div>
+
+  <script type="text/x-template" id="my-com-template">
+    <div>这是第一个模版: {{ mymessage }} -- {{ count }}-- <button @click="add">修改内容</button></div>    
+  </script>
+  <script type="text/x-template" id="my-com-2-template">
+    <div>这是第二个模版: {{ myMessage }} -- {{ count }}-- <button @click="add">修改内容</button></div>    
+  </script>
+
+  <script type="text/javascript" src="vue.2.0.1.js"></script>
+  <script type="text/javascript">
+
+    Vue.component('my-com', {
+      template: '#my-com-template',
+      data: function() {
+        return {count: 1};
+      },
+      props: ['mymessage'],
+      methods: {
+        add: function(){
+          this.count++;
+        }
+      }
+    });
+
+    var data = {count: 1};
+
+    Vue.component('my-com-2', {
+      template: '#my-com-2-template',
+      data: function() {
+        return data;
+      },
+      props: ['myMessage'],
+      methods: {
+        add: function(){
+          this.count++;
+        }
+      }
+    });
+
+    var vm = new Vue({
+      el: '#app',
+      data: {
+       message: '这真的是一个模版！！！'
+      }
+    });
+
+  </script>
+
+</body>
+</html>
+

@@ -4,4 +4,9 @@
 
 >git status
 
+>git add git.txt
+
+>git commit -m "create git.txt file!"
+
+>git log
 
